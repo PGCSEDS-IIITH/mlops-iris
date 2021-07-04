@@ -24,3 +24,30 @@ def test_pred_virginica():
         # asserting the correct response is received
         assert response.status_code == 200
         assert response.json() == {"flower_class": "Iris Virginica"}
+
+def test_pred_setosa():
+    payload = {
+        "sepal_length": 4.8,
+        "sepal_width": 3,
+        "petal_length": 1.4,
+        "petal_width": 0.1,
+    }
+    with TestClient(app) as client:
+        response = client.post("/predict_flower", json=payload)
+        # asserting the correct response is received
+        assert response.status_code == 200
+        assert response.json() == {"flower_class": "Iris Setosa"}
+
+
+def test_pred_versicolor():
+    payload = {
+        "sepal_length": 6,
+        "sepal_width": 2.9,
+        "petal_length": 4.5,
+        "petal_width": 1.5,
+    }
+    with TestClient(app) as client:
+        response = client.post("/predict_flower", json=payload)
+        # asserting the correct response is received
+        assert response.status_code == 200
+        assert response.json() == {"flower_class": "Iris Versicolor"}
