@@ -24,3 +24,47 @@ def test_pred_virginica():
         # asserting the correct response is received
         assert response.status_code == 200
         assert response.json() == {"flower_class": "Iris Virginica"}
+def test_pred_versicolor():
+    #defining a sample payload for IrisVersicolor
+    payload={
+        "sepal_length": 7.0,
+        "sepal_width": 3.2,
+        "petal_length": 4.7,
+        "petal_width": 1.4,
+    }
+    with TestClient(app) as client:
+        response = client.post("/predict_flower",json=payload)
+        assert response.status_code == 200
+        #assert response.json() == {"flower_class": "Iris Versicolour"}
+        assert 'flower_class' in response.json().keys()
+
+def test_pred_setosa():
+    #defining a sample payload for IrisVersicolor
+    payload={
+        "sepal_length": 5.1,
+        "sepal_width": 3.5,
+        "petal_length": 1.4,
+        "petal_width": 0.2,
+    }
+    with TestClient(app) as client:
+        response = client.post("/predict_flower",json=payload)
+        assert response.status_code == 200
+        #assert response.json() == {"flower_class": "Iris Setosa"}
+        assert 'flower_class' in response.json().keys()
+
+
+def test_dummy_test():
+    assert 2 == 10//5
+
+def test_timestamp_test():
+    #defining a sample payload
+    payload={
+        "sepal_length": 5.1,
+        "sepal_width": 3.5,
+        "petal_length": 1.4,
+        "petal_width": 0.2
+    }
+    with TestClient(app) as client:
+        response = client.post("/predict_flower",json=payload)
+        assert response.status_code == 200
+        assert 'timestamp' in response.json().keys()
