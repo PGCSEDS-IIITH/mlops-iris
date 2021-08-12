@@ -52,4 +52,5 @@ def test_pred_virginica2():
         response = client.post("/predict_flower", json=payload)
         # asserting the correct response is received
         assert response.status_code == 200
-        assert response.json() == {"flower_class": "Iris Setosa"}
+        assert response.text(' ris Virginica') is in response.json()
+        #assert flower_class["Iris Virginica"] is in response.json()
